@@ -26,7 +26,7 @@ const port=process.env.PORT || 4444
 app.use(express.json());
 
 app.use(cors({
-    origin: 'http://localhost:3000', // Replace with your frontend's URL
+    origin: 'https://groceries2-frontend.onrender.com', // Replace with your frontend's URL
     credentials: true
 }));
 
