@@ -80,6 +80,7 @@ app.post("/login", async (req, res) => {
                       console.error("Session save error:", err);
                       return res.status(500).json({ error: "Failed to save session" });
                   }
+                  
                   console.log("Session set:", req.session.user);
                   res.json("Success");
               });
@@ -111,6 +112,7 @@ app.post("/logout", (req, res) => {
 });
 
 app.get('/user', (req, res) => {
+    console.log('Session data:', req.session);
   if (req.session.user) {
     console.log("Authenticated user:", req.session.user);
       res.json({ user: req.session.user });
