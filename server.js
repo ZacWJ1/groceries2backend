@@ -73,6 +73,7 @@ app.post("/login", async (req, res) => {
           if (passwordMatch) {
               req.session.user = { id: user._id, name: user.name, email: user.email };
               // console.log(email);
+              console.log("Session set:", req.session.user);
               console.log(user.name);
               res.json("Success");
           } else {
@@ -103,8 +104,10 @@ app.post("/logout", (req, res) => {
 
 app.get('/user', (req, res) => {
   if (req.session.user) {
+    console.log("Authenticated user:", req.session.user);
       res.json({ user: req.session.user });
   } else {
+    console.log("User not authenticated");
       res.status(401).json("Not authenticated");
   }
 });
