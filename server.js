@@ -73,10 +73,16 @@ app.post("/login", async (req, res) => {
           if (passwordMatch) {
               req.session.user = { id: user._id, name: user.name, email: user.email };
               // console.log(email);
-              console.log("Session set:", req.session.user);
-              console.log(user.name);
-              res.json("Success");
-          } else {
+               req.session.save((err) => {
+                  if (err) {
+                      console.error("Session save error:", err);
+                      return res.status(500).json({ error: "Failed to save session" });
+                  }
+                  console.log("Session set:", req.session.user);
+                  res.json("Success");
+              });
+          }
+              else {
               res.status(401).json("Password doesn't match");
           }
       } else {
