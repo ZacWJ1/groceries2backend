@@ -7,11 +7,11 @@ const bcrypt = require("bcrypt");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const UserModel = require("./models/User");
-
+const passport = require('passport')
 // Passport config
 require('./config/passport')(passport)
 //auth code
-const passport = require('passport')
+
 const flash = require('express-flash')
 const logger = require('morgan')
 
