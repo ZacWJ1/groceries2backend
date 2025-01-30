@@ -49,7 +49,7 @@ app.use(session({
 }));
 app.get('/', (req, res) => {
     res.send('Welcome to the Express Server!');
-    
+  });
 app.post("/signup", async (req, res) => {
   try {
       const { name, email, password } = req.body;
