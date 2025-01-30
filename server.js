@@ -46,7 +46,7 @@ app.use(session({
   cookie: { maxAge: 24 * 60 * 60 * 1000 }, // 1 day
   httpOnly: true,
    secure: process.env.NODE_ENV === 'production',
-   samesite:none,
+   sameSite:'none'
 }));
 app.get('/', (req, res) => {
     res.send('Welcome to the Express Server!');
