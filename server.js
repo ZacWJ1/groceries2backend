@@ -115,16 +115,16 @@ app.post("/logout", (req, res) => {
   }
 });
 
-app.get('/user', (req, res, next) => {
+app.get('/user', (req, res) => {
     console.log('Session data:', req.session);
-    if (req.isAuthenticated()) {
-        console.log("Authenticated user:", req.user);
-        res.json({ user: req.user });
-    } else {
-        console.log("User not authenticated");
-        res.status(401).json("Not authenticated");
-    }
-})
+  if (req.session.user) {
+    console.log("Authenticated user:", req.session.user);
+      res.json({ user: req.session.user });
+  } else {
+    console.log("User not authenticated");
+      res.status(401).json("Not authenticated");
+  }
+});
 //auth code
 app.use(express.urlencoded({ extended: true }))
 app.use(logger('dev'))
