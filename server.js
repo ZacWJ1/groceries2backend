@@ -8,14 +8,14 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const UserModel = require("./models/User");
 
-/*//auth code
-const passport = require('passport')
-const session = require('express-session')
-const MongoStore = require('connect-mongo')(session)
-const flash = require('express-flash')
-const logger = require('morgan')
 // Passport config
 require('./config/passport')(passport)
+//auth code
+const passport = require('passport')
+const flash = require('express-flash')
+const logger = require('morgan')
+
+
 //auth code*/
 
 
@@ -121,18 +121,9 @@ app.get('/user', (req, res) => {
       res.status(401).json("Not authenticated");
   }
 });
-/*//auth code
+//auth code
 app.use(express.urlencoded({ extended: true }))
 app.use(logger('dev'))
-// Sessions
-app.use(
-    session({
-      secret: 'keyboard cat',
-      resave: false,
-      saveUninitialized: false,
-      store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    })
-  )
   // Passport middleware
 app.use(passport.initialize())
 app.use(passport.session())
@@ -199,4 +190,4 @@ app.use(flash())
     res.status(200).send('Grocery deleted');
 });
   
-  app.listen(4444, () => console.log('Server started on port 4444'));
+  app.listen(port, () => console.log(`Server started on port ${port}`));
