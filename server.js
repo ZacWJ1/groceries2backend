@@ -8,6 +8,7 @@ const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const UserModel = require("./models/User");
 const passport = require('passport')
+const cookieParser = require("cookie-parser");
 // Passport config
 require('./config/passport')(passport)
 //auth code
@@ -29,7 +30,7 @@ app.use(cors({
     origin: 'https://groceries2-frontend.onrender.com', // Replace with your frontend's URL
     credentials: true
 }));
-
+app.use(cookieParser());
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Connected to MongoDB'))
     .catch(err => console.error('Failed to connect to MongoDB', err));
@@ -45,7 +46,7 @@ app.use(session({
   }),
   cookie: { maxAge: 24 * 60 * 60 * 1000 }, // 1 day
   httpOnly: true,
-   secure: process.env.NODE_ENV === 'production',
+   secure: true,
    sameSite:'none'
 }));
 app.get('/', (req, res) => {
