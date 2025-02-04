@@ -16,7 +16,7 @@ require('./config/passport')(passport)
 const flash = require('express-flash')
 const logger = require('morgan')
 
-
+const app = express();
 //auth code*/
 app.use(cors({
   origin: 'https://groceries2-frontend.onrender.com', // Replace with your frontend's URL
@@ -24,15 +24,12 @@ app.use(cors({
 }));
 
 dotenv.config();
-const app = express();
+
 const port=process.env.PORT || 4444
 
 app.use(express.json());
 
-app.use(cors({
-    origin: 'https://groceries2-frontend.onrender.com', // Replace with your frontend's URL
-    credentials: true
-}));
+
 app.use(cookieParser());
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log('Connected to MongoDB'))
