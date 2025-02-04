@@ -18,7 +18,10 @@ const logger = require('morgan')
 
 
 //auth code*/
-
+app.use(cors({
+  origin: 'https://groceries2-frontend.onrender.com', // Replace with your frontend's URL
+  credentials: true
+}));
 
 dotenv.config();
 const app = express();
