@@ -45,9 +45,9 @@ app.use(session({
       mongoUrl: process.env.MONGO_URI
   }),
   cookie: { maxAge: 24 * 60 * 60 * 1000 }, // 1 day
- /* httpOnly: true,
-   secure: true,*/
-   sameSite:'none'
+  //httpOnly: true,
+   secure: true,
+   sameSite:'None'
 }));
 app.get('/', (req, res) => {
     res.send('Welcome to the Express Server!');
