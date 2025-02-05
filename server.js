@@ -44,14 +44,15 @@ app.use(session({
   store: MongoStore.create({
       mongoUrl: process.env.MONGO_URI
   }),
-  cookie: { maxAge: 24 * 60 * 60 * 1000 }, // 1 day
+  Cookie: { maxAge: 24 * 60 * 60 * 1000 }, // 1 day
   //httpOnly: true,
    secure: true,
+   path: "/",
    sameSite:'None'
 }));
-app.get('/', (req, res) => {
+/*app.get('/', (req, res) => {
     res.send('Welcome to the Express Server!');
-  });
+  });*/
 app.post("/signup", async (req, res) => {
   try {
       const { name, email, password } = req.body;
