@@ -45,9 +45,8 @@ app.use(session({
       mongoUrl: process.env.MONGO_URI
   }),
   Cookie: { maxAge: 24 * 60 * 60 * 1000 }, // 1 day
-  //httpOnly: true,
+  httpOnly: true,
    secure: true,
-   path: "/",
    sameSite:'None'
 }));
 /*app.get('/', (req, res) => {
