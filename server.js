@@ -9,6 +9,9 @@ const MongoStore = require("connect-mongo");
 const UserModel = require("./models/User");
 const passport = require('passport')
 const cookieParser = require("cookie-parser");
+const fs = require('fs');
+const https = require('https');
+const path = require('path');
 // Passport config
 require('./config/passport')(passport)
 //auth code
@@ -194,4 +197,11 @@ app.use(flash())
     res.status(200).send('Grocery deleted');
 });
   
-  app.listen(port, () => console.log(`Server started on port ${port}`));
+const sslOptions = {
+  key: fs.readFileSync(path.join(__dirname, 'ssl', 'server.key')),
+  cert: fs.readFileSync(path.join(__dirname, 'ssl', 'server.crt'))
+};
+
+https.createServer(sslOptions, app).listen(port, () => {
+  console.log(`Secure server started on port ${port}`);
+});
