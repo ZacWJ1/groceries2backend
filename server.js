@@ -1,15 +1,4 @@
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-  if ('OPTIONS' == req.method) {
-       res.send(200);
-   } else {
-       next();
-   }
-  });
-  
+
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
@@ -29,6 +18,18 @@ const flash = require('express-flash')
 const logger = require('morgan')
 
 const app = express();
+app.use(function(req, res, next) {
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Origin', req.headers.origin);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
+  if ('OPTIONS' == req.method) {
+       res.send(200);
+   } else {
+       next();
+   }
+  });
+  
 //auth code*/
 app.use(cors({
   origin: 'https://groceries2-frontend.onrender.com', // Replace with your frontend's URL
