@@ -18,10 +18,12 @@ const flash = require('express-flash')
 const logger = require('morgan')
 
 const app = express();
+
 const corsOptions = {
   origin: 'https://groceries2-frontend.onrender.com', // Specify your frontend domain
   credentials: true // This ensures that credentials (cookies) are allowed
 };
+app.options('*', cors(corsOptions));
 app.use(cors(corsOptions))
 
 
