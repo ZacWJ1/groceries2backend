@@ -16,12 +16,9 @@ require('./config/passport')(passport)
 
 const flash = require('express-flash')
 const logger = require('morgan')
-const corsOptions = {
-  origin: 'https://groceries2-frontend.onrender.com',
-  credentials: true // This ensures that credentials (cookies) are allowed
-};
+
 const app = express();
-app.use(cors(corsOptions))
+app.use(cors())
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Origin', req.headers.origin);
