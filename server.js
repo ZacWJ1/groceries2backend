@@ -19,9 +19,9 @@ const logger = require('morgan')
 
 const app = express();
 app.use(cors())
-HttpContext.Response.Headers.Add("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT"); 
-HttpContext.Response.Headers.Add("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
-HttpContext.Response.Headers.Add("Access-Control-Allow-Origin", "https://groceries2-frontend.onrender.com");
+response.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT"); 
+response.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+response.setHeader("Access-Control-Allow-Origin", "https://groceries2-frontend.onrender.com");
 app.use(function(req, res, next) {
   res.header('Access-Control-Allow-Credentials', true);
   res.header('Access-Control-Allow-Origin', req.headers.origin);
