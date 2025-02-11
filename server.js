@@ -20,29 +20,14 @@ const logger = require('morgan')
 const app = express();
 
 const corsOptions = {
-  origin: 'https://groceries2-frontend.onrender.com', // Specify your frontend domain
-  credentials: true, // This ensures that credentials (cookies) are allowed
+  origin: 'https://groceries2-frontend.onrender.com', 
+  credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
 };
-app.options('*', cors(corsOptions));
 app.use(cors(corsOptions))
+app.options('*', cors(corsOptions));
 
-
-
-app.use(function(req, res, next) {
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Origin', req.headers.origin);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-  res.header('Access-Control-Allow-Headers', 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept');
-  if ('OPTIONS' == req.method) {
-       res.send(200);
-   } else {
-       next();
-   }
-  });
   
-
-
 dotenv.config();
 
 const port=process.env.PORT || 4444
