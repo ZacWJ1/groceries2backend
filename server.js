@@ -34,11 +34,7 @@ app.use(function(req, res, next) {
    }
   });
   
-//auth code*/
-app.use(cors({
-  origin: 'https://groceries2-frontend.onrender.com', // Replace with your frontend's URL
-  credentials: true
-}));
+
 
 dotenv.config();
 
@@ -94,6 +90,7 @@ app.post("/login", async (req, res) => {
       if (user) {
           const passwordMatch = await bcrypt.compare(password, user.password);
           if (passwordMatch) {
+            res.header('Access-Control-Allow-Origin',"https://groceries2-frontend.onrender.com")
               req.session.user = { id: user._id, name: user.name, email: user.email };
               // console.log(email);
                req.session.save((err) => {
@@ -136,6 +133,7 @@ app.get('/user', (req, res) => {
     console.log('Session data:', req.session);
   if (req.session.user) {
     console.log("Authenticated user:", req.session.user);
+      res.header('Access-Control-Allow-Origin',"https://groceries2-frontend.onrender.com")
       res.json({ user: req.session.user });
   } else {
     console.log("User not authenticated");
