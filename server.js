@@ -20,8 +20,9 @@ const logger = require('morgan')
 const app = express();
 
 const corsOptions = {
-  origin: 'https://groceries2-frontend.onrender.com', // Specify your frontend domain
-  credentials: true // This ensures that credentials (cookies) are allowed
+  origin: 'groceries2-frontend.onrender.com', // Specify your frontend domain
+  credentials: true, // This ensures that credentials (cookies) are allowed
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
 };
 app.options('*', cors(corsOptions));
 app.use(cors(corsOptions))
