@@ -41,7 +41,7 @@ mongoose.connect(process.env.MONGO_URI)
     .catch(err => console.error('Failed to connect to MongoDB', err));
 
 
-
+app.set("trust proxy",1)
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
