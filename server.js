@@ -143,6 +143,10 @@ app.use(flash())
 
 
     const itemSchema = new mongoose.Schema({
+      userID:{
+        type: String,
+        required:true,
+      },
       item: String,
       protein: String,
       fat: String,
@@ -152,6 +156,10 @@ app.use(flash())
   });
   
   const grocerySchema = new mongoose.Schema({
+    userID:{
+      type:String,
+      required:true,
+    },
     grocery: String,
     cost: String,
     type: String,
@@ -162,11 +170,20 @@ app.use(flash())
   const Grocery = mongoose.model('Grocery', grocerySchema);
   
   app.get('/items', async (req, res) => {
-      const items = await Item.find();
+    if (!req.session.user) {
+      return res.status(401).json({ error: "Not authenticated" });
+  }
+      const userId = req.session.user.id;
+      const items = await Item.find({userID:userId});
       res.send(items);
   });
+
   app.get('/groceries', async (req, res) => {
-    const groceries = await Grocery.find();
+    if (!req.session.user) {
+      return res.status(401).json({ error: "Not authenticated" });
+  }
+    const userId = req.session.user.id;// Get the user ID from the session
+    const groceries = await Grocery.find({userID:userId});// Filter by userID 
     res.send(groceries);
 });
   
@@ -180,12 +197,28 @@ app.use(flash())
 });
   
   app.post('/items', async (req, res) => {
-      const newItem = new Item(req.body);
+    if(!req.session.user){
+      return res.status(401).json({error: "Not Authenticated"});
+    }
+      const userId=req.session.user.id;
+
+      const newItem = new Item({
+        ...req.body,
+        userID:userId, //Add the userID
+      });
       const savedItem = await newItem.save();
       res.send(savedItem);
   });
+
   app.post('/groceries', async (req, res) => {
-    const newGrocery = new Grocery(req.body);
+    if (!req.session.user) {
+      return res.status(401).json({ error: "Not authenticated" });
+  }
+    const userId = req.session.user.id; // Get the user ID from the session
+    const newGrocery = new Grocery({
+      ...req.body,
+    userID: userId,//Add the userID
+  });
     const savedGrocery = await newGrocery.save();
     res.send(savedGrocery);
 });
