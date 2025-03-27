@@ -188,12 +188,34 @@ app.use(flash())
 });
   
   app.get('/items/:id', async (req, res) => {
-      const food = await Item.findById(req.params.id);
-      res.send(food);
-  });
-  app.get('/groceries/:id', async (req, res) => {
-    const groceryItem = await Grocery.findById(req.params.id);
-    res.send(groceryItem);
+    if (!req.session.user) {
+      return res.status(401).json({ error: "Not authenticated" });
+  }
+      const userId = req.session.user.id;
+      try {
+        const food = await Item.findOne({ _id: req.params.id, userID: userId });
+        if (!food) {
+            return res.status(404).json({ error: "Item not found or not authorized" });
+        }
+        res.send(food);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+app.get('/groceries/:id', async (req, res) => {
+  if (!req.session.user) {
+      return res.status(401).json({ error: "Not authenticated" });
+  }
+  const userId = req.session.user.id;
+  try {
+      const groceryItem = await Grocery.findOne({ _id: req.params.id, userID: userId });
+      if (!groceryItem) {
+          return res.status(404).json({ error: "Grocery not found or not authorized" });
+      }
+      res.send(groceryItem);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
 });
   
   app.post('/items', async (req, res) => {
