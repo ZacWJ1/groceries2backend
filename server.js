@@ -22,19 +22,13 @@ const app = express();
 const corsOptions = {
   origin: 'https://groceries2-frontend.onrender.com', 
   credentials: true,
-   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', // Include OPTIONS
-    allowedHeaders: 'Content-Type,Authorization'
+  Vary: Origin
+  
   //allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
 };
 app.use(cors(corsOptions))
-//app.options('*', cors(corsOptions));
-app.options('/groceries', (req, res) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://groceries2-frontend.onrender.com');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,DELETE,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  res.sendStatus(204);
-});
+app.options('https://groceries2-frontend.onrender.com', cors(corsOptions));
+
   
 dotenv.config();
 
