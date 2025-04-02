@@ -22,6 +22,8 @@ const app = express();
 const corsOptions = {
   origin: 'https://groceries2-frontend.onrender.com', 
   credentials: true,
+   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS', // Include OPTIONS
+    allowedHeaders: 'Content-Type,Authorization'
   //allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
 };
 app.use(cors(corsOptions))
