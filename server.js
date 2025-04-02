@@ -22,7 +22,6 @@ const app = express();
 const corsOptions = {
   origin: 'https://groceries2-frontend.onrender.com', 
   credentials: true,
-  Vary: Origin
   
   //allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
 };
